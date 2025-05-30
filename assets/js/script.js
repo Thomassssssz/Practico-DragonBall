@@ -54,3 +54,26 @@ try {
     ocultarLoader();
 }
 }
+
+function renderizarPersonajes(lista) {
+lista.forEach((p) => {
+    const col = document.createElement("div");
+    col.className = "col-sm-6 col-md-4 col-lg-3";
+
+    const card = document.createElement("div");
+    card.className = "card h-100";
+    card.innerHTML = `
+    <img src="${p.image}" class="card-img-top" alt="${p.name}">
+    <div class="card-body">
+        <h5 class="card-title">${p.name}</h5>
+        <p class="card-text"><strong>Raza:</strong> ${p.race}</p>
+        <p class="card-text"><strong>Género:</strong> ${p.gender}</p>
+    </div>
+    `;
+
+    card.addEventListener("click", () => mostrarModal(p.id));
+
+    col.appendChild(card);
+    container.appendChild(col);
+});
+}
