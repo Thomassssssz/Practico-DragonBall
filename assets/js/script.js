@@ -11,3 +11,31 @@ let cargando = false;
 document.addEventListener("DOMContentLoaded", () => {
 cargarPersonajesIniciales();
 });
+
+form.addEventListener("submit", async (e) => {
+e.preventDefault();
+const termino = input.value.trim();
+if (termino === "") {
+    mostrarMensaje("Por favor ingresá un nombre.");
+    return;
+}
+
+limpiarPersonajes();
+mostrarLoader();
+
+try {
+    const res = await fetch(`${apiBase}?name=${termino}`);
+    const data = await res.json();
+
+    if (!Array.isArray(data) || data.length === 0) {
+    mostrarMensaje("No se encontraron personajes.");
+    } else {
+      renderizarPersonajes(data); // ✅ CORREGIDO: usar data directamente
+    }
+} catch (err) {
+    mostrarMensaje("Ocurrió un error al consultar la API.");
+    console.error(err);
+} finally {
+    ocultarLoader();
+}
+});
