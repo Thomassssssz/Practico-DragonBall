@@ -39,3 +39,18 @@ try {
     ocultarLoader();
 }
 });
+
+async function cargarPersonajesIniciales() {
+mostrarLoader();
+try {
+    const res = await fetch(`${apiBase}?limit=20&page=${pagina}`);
+    const data = await res.json();
+    renderizarPersonajes(data.items);
+    pagina++;
+} catch (err) {
+    console.error(err);
+    mostrarMensaje("No se pudieron cargar los personajes.");
+} finally {
+    ocultarLoader();
+}
+}
