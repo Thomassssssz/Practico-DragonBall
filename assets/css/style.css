@@ -1,0 +1,17 @@
+body {
+  background-image: url(/assets/img/dragon-ball-landscape-homlawg2ltod5zaw.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card {
+    background-color: rgba(31, 167, 99, 0.345);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
