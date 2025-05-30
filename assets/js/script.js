@@ -77,3 +77,64 @@ lista.forEach((p) => {
     container.appendChild(col);
 });
 }
+
+async function mostrarModal(id) {
+  try {
+    const res = await fetch(`${apiBase}/${id}`);
+    const p = await res.json();
+
+    document.getElementById("modalNombre").textContent = p.name;
+    document.getElementById("modalImagen").src = p.image;
+    document.getElementById("modalRaza").textContent = p.race;
+    document.getElementById("modalGenero").textContent = p.gender;
+    document.getElementById("modalKi").textContent = p.ki || "Desconocido";
+    document.getElementById("modalDescripcion").textContent = p.description || "Sin descripción disponible.";
+
+    const modal = new bootstrap.Modal(document.getElementById("detalleModal"));
+    modal.show();
+  } catch (err) {
+    console.error("Error al cargar detalles:", err);
+  }
+}
+
+function limpiarPersonajes() {
+  container.innerHTML = "";
+  mensaje.textContent = "";
+}
+
+function mostrarMensaje(msg) {
+  mensaje.textContent = msg;
+}
+
+function mostrarLoader() {
+  loader.classList.remove("d-none");
+}
+
+function ocultarLoader() {
+  loader.classList.add("d-none");
+}
+
+// Scroll infinito
+window.addEventListener("scroll", async () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 && !cargando && input.value === "") {
+    cargando = true;
+    mostrarLoader();
+    await cargarPersonajesScroll();
+    ocultarLoader();
+    cargando = false;
+  }
+});
+
+async function cargarPersonajesScroll() {
+  try {
+    const res = await fetch(`${apiBase}?limit=20&page=${pagina}`);
+    const data = await res.json();
+    if (data.items && data.items.length > 0) {
+      renderizarPersonajes(data.items);
+      pagina++;
+    }
+  } catch (err) {
+    console.error("Error en scroll:", err);
+  }
+}
+
