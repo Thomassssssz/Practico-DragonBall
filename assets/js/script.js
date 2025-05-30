@@ -24,7 +24,7 @@ resetBtn.addEventListener("click", async () => {
 input.value = "";
 limpiarPersonajes();
 pagina = 1;
-  await cargarPersonajesIniciales(); // volvemos a cargar la lista original
+  await cargarPersonajesIniciales(); 
 });
 
 limpiarPersonajes();
@@ -37,7 +37,7 @@ try {
     if (!Array.isArray(data) || data.length === 0) {
     mostrarMensaje("No se encontraron personajes.");
     } else {
-      renderizarPersonajes(data); // ✅ CORREGIDO: usar data directamente
+    renderizarPersonajes(data); 
     }
 } catch (err) {
     mostrarMensaje("Ocurrió un error al consultar la API.");
