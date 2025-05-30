@@ -4,7 +4,7 @@ const form = document.getElementById("busquedaForm");
 const input = document.getElementById("busquedaInput");
 const mensaje = document.getElementById("mensaje");
 const loader = document.getElementById("loader");
-
+const resetBtn = document.getElementById("resetBtn");
 let pagina = 1;
 let cargando = false;
 
@@ -19,6 +19,13 @@ if (termino === "") {
     mostrarMensaje("Por favor ingresá un nombre.");
     return;
 }
+
+resetBtn.addEventListener("click", async () => {
+input.value = "";
+limpiarPersonajes();
+pagina = 1;
+  await cargarPersonajesIniciales(); // volvemos a cargar la lista original
+});
 
 limpiarPersonajes();
 mostrarLoader();
