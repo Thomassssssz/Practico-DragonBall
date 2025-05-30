@@ -7,3 +7,7 @@ const loader = document.getElementById("loader");
 
 let pagina = 1;
 let cargando = false;
+
+document.addEventListener("DOMContentLoaded", () => {
+cargarPersonajesIniciales();
+});
